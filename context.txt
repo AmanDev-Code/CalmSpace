@@ -1,0 +1,46 @@
+CalmSpace 
+Branding & Colors for CalmSpace
+Color Palette (Calming & Therapeutic):
+•	Soft Blue (#A8DADC): Trust, clarity, calm
+•	Pale Lavender (#E6E6FA): Tranquility, emotional balance
+•	Mint Green (#D4F1F4): Freshness, hope
+•	Light Beige or Cream (#FAF3E0): Warmth, safety
+•	Slate Gray (#5D6D7E): Stability and grounding for text
+Font Style Suggestions:
+•	Headings: Lora or Playfair Display (serif for trust and warmth)
+•	Body Text: Open Sans or Lato (clean, readable)
+Tone of Voice:
+•	Warm, empathetic, and reassuring
+•	Simple, jargon-free language
+•	Encouraging and inclusive
+ 
+Website Pages with Design Notes
+1. Home Page
+•	Hero Section: Gradient background (Soft Blue to Mint Green), large calming image (person meditating, therapist and client, peaceful landscape)
+•	CTA Button Color: Pale Lavender with soft hover effect
+•	Typography: Large, soft-font headline like: “Find peace within. One step at a time.”
+ 
+2. About Us
+•	Use Cream background, soft line illustrations (like blooming flowers, open doors)
+•	Add founder’s story as a narrative — build emotional connection
+ 
+3. Services
+•	Use light card-style sections with Mint or Blue accents
+•	Icons or illustrations instead of stock photos to maintain gentle, non-triggering visuals
+ 
+4. Resources
+•	Pastel sections with downloadable buttons (Lavender with dark text)
+•	Include infographics or animated explainers
+ 
+5. Blog
+•	Clean white or cream background for readability
+•	Featured post carousel with calming images
+ 
+6. Book a Session
+•	Form Background: Slate Gray on white card layout
+•	CTA button in Blue or Lavender with rounded corners
+•	Optional calming quote at the top like: “You are not alone. Help is just a click away.”
+ 
+7. Contact Us
+•	Map and contact form with Green/Blue outlines
+•	Add option for quick mental health screening or chatbot
