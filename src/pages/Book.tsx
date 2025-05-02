@@ -54,7 +54,15 @@ const Book = () => {
                           <polyline points="20 6 9 17 4 12"></polyline>
                         </svg>
                       </span>
-                      <span>After submitting your request, we'll respond within 24 hours to confirm your appointment.</span>
+                      <span>After filling out your information, you'll be taken to a secure checkout page to complete your payment.</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="bg-calm-mint/30 text-calm-blue rounded-full p-1 mr-3 mt-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                      </span>
+                      <span>Once payment is successful, your booking will be confirmed and you'll receive a confirmation email.</span>
                     </li>
                     <li className="flex items-start">
                       <span className="bg-calm-mint/30 text-calm-blue rounded-full p-1 mr-3 mt-1">
@@ -71,6 +79,14 @@ const Book = () => {
                         </svg>
                       </span>
                       <span>Sessions can take place in-person at our Bangalore office or via secure video conferencing.</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="bg-calm-mint/30 text-calm-blue rounded-full p-1 mr-3 mt-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                      </span>
+                      <span>Secure payments are processed through Razorpay, supporting all major credit/debit cards and UPI.</span>
                     </li>
                   </ul>
                 </CardContent>

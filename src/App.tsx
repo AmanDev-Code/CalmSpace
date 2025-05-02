@@ -14,6 +14,9 @@ import Enquiry from "./pages/Enquiry";
 import NotFound from "./pages/NotFound";
 import BlogPost from "./pages/BlogPost";
 import RevenueStreamDetail from "./pages/RevenueStreamDetail";
+import Checkout from "./pages/Checkout";
+import PaymentSuccess from "./pages/PaymentSuccess";
+import PaymentFailure from "./pages/PaymentFailure";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +34,9 @@ const App = () => (
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/book" element={<Book />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/payment-success" element={<PaymentSuccess />} />
+          <Route path="/payment-failure" element={<PaymentFailure />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/enquiry" element={<Enquiry />} />
           <Route path="/revenue-streams/:streamId" element={<RevenueStreamDetail />} />

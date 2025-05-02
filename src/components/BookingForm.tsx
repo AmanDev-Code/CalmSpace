@@ -8,13 +8,14 @@ import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { format } from 'date-fns';
 import { cn } from '@/lib/utils';
-import { isValidEmail, submitBookingData } from '@/lib/formUtils';
+import { isValidEmail } from '@/lib/formUtils';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, CalendarIcon } from 'lucide-react';
-import { initEmailJS } from '@/lib/emailjs';
+import { useNavigate } from 'react-router-dom';
 
 export const BookingForm = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [date, setDate] = useState<Date | undefined>(undefined);
   const [formData, setFormData] = useState({
     name: '',
@@ -26,12 +27,6 @@ export const BookingForm = () => {
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-
-  // Initialize EmailJS on component mount
-  useEffect(() => {
-    initEmailJS();
-  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -103,34 +98,12 @@ export const BookingForm = () => {
         appointmentDate: date ? format(date, 'PPP') : '',
       };
       
-      // Submit the form data (automatically sends confirmation email to customer)
-      const response = await submitBookingData(fullFormData);
+      // Instead of submitting the form data directly, store it in sessionStorage and navigate to checkout
+      sessionStorage.setItem('bookingData', JSON.stringify(fullFormData));
       
-      if (response.success) {
-        setIsSuccess(true);
-        
-        toast({
-          title: 'Booking Requested!',
-          description: 'Thank you for booking a session. We have sent you a confirmation email and will confirm your appointment shortly!',
-        });
-        
-        // Reset form
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          serviceType: '',
-          therapistPreference: '',
-          concerns: '',
-        });
-        setDate(undefined);
-      } else {
-        toast({
-          variant: 'destructive',
-          title: 'Something went wrong',
-          description: 'Failed to submit the booking. Please try again later.',
-        });
-      }
+      // Redirect to checkout page
+      navigate('/checkout');
+      
     } catch (error) {
       toast({
         variant: 'destructive',
@@ -138,20 +111,12 @@ export const BookingForm = () => {
         description: 'An unexpected error occurred. Please try again later.',
       });
       console.error('Booking submission error:', error);
-    } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
     <>
-      {isSuccess && (
-        <div className="bg-green-50 border border-green-200 text-green-800 rounded-md p-4 mb-6">
-          <h3 className="text-lg font-medium">Booking Requested!</h3>
-          <p>Thank you for requesting a session. We've sent you a confirmation email and will reach out shortly to confirm your appointment.</p>
-        </div>
-      )}
-      
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
@@ -331,15 +296,15 @@ export const BookingForm = () => {
           {isSubmitting ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Booking...
+              Processing...
             </>
           ) : (
-            'Book Session'
+            'Continue to Checkout'
           )}
         </Button>
         
         <p className="text-xs text-calm-gray/70 text-center">
-          By booking a session, you agree to our cancellation policy. We'll send a confirmation email with details.
+          By proceeding to checkout, you agree to our terms and cancellation policy.
         </p>
       </form>
     </>

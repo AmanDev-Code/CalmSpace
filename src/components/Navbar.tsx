@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Download } from 'lucide-react';
 import {
   Sheet,
   SheetContent,
@@ -12,9 +12,25 @@ import {
   SheetFooter,
 } from "@/components/ui/sheet";
 import { PWAInstallPrompt, PWASidebarInstallButton } from './PWAInstallPrompt';
+import { downloadApkFile } from './DownloadHandler';
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAndroid, setIsAndroid] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Detect Android platform and mobile device
+    const userAgent = window.navigator.userAgent.toLowerCase();
+    setIsAndroid(/android/.test(userAgent));
+    setIsMobile(/android|iphone|ipad|ipod|mobile/i.test(userAgent));
+    
+    // Apply specific Android class to header for minimal top gap
+    if (/android/.test(userAgent)) {
+      document.querySelector('header')?.classList.add('android-header-minimal-gap');
+      console.log('Android detected in Navbar, applying minimal gap');
+    }
+  }, []);
 
   // Prevent scrolling when menu is open
   useEffect(() => {
@@ -33,6 +49,19 @@ export const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  // Function to handle APK download
+  const handleDownloadApk = () => {
+    downloadApkFile('/app-release.apk', 'calmspace.apk')
+      .then(() => {
+        // Close the menu after successful download
+        setIsMenuOpen(false);
+      })
+      .catch((error) => {
+        console.error('Download failed:', error);
+        alert('Failed to download the app. Please try again or contact support.');
+      });
+  };
+
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'About Us', path: '/about' },
@@ -43,7 +72,7 @@ export const Navbar = () => {
   ];
 
   return (
-    <header className="sticky top-0 w-full z-[100] bg-white/80 backdrop-blur-md shadow-sm">
+    <header className={`sticky top-0 w-full z-[100] bg-white/80 backdrop-blur-md shadow-sm ${isAndroid ? 'android-header-minimal-gap' : ''}`}>
       <div className="container mx-auto px-4 py-2">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center">
@@ -87,9 +116,23 @@ export const Navbar = () => {
                   
                   <div className="flex-1 overflow-auto bg-white">
                     {/* Show PWA install prompt at the top of the mobile menu */}
-                    <div className="px-6 py-3">
-                      <PWAInstallPrompt />
-                    </div>
+                  
+                    
+                    {/* Show Android APK download button if on Android mobile */}
+                    {isAndroid && isMobile && (
+                      <div className="px-6 py-3 border-b border-gray-100 bg-white">
+                        <Button 
+                          onClick={handleDownloadApk} 
+                          className="w-full bg-green-600 hover:bg-green-700 text-white font-medium rounded-md py-4 transition-colors flex items-center justify-center"
+                        >
+                          <Download className="h-5 w-5 mr-2" />
+                          Download Android App
+                        </Button>
+                        <p className="text-xs text-gray-500 mt-1 text-center">
+                          Download our app directly to your device
+                        </p>
+                      </div>
+                    )}
                     
                     <nav className="flex flex-col bg-white">
                       {navLinks.map((link, index) => (

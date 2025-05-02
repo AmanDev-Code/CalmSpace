@@ -3,12 +3,21 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
 import { VitePWA } from "vite-plugin-pwa";
+import { copyFileSync } from 'fs';
+import handleApkDownload from './custom-middleware';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
+    fs: {
+      allow: ['..']
+    },
+    middlewareMode: false,
+    configureServer: (server) => {
+      server.middlewares.use(handleApkDownload);
+    }
   },
   plugins: [
     react(),
@@ -18,7 +27,7 @@ export default defineConfig(({ mode }) => ({
       registerType: 'autoUpdate',
       injectRegister: 'auto',
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,jpg,jpeg,gif}'],
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,jpg,jpeg,gif,apk}'],
         runtimeCaching: [
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
@@ -49,7 +58,7 @@ export default defineConfig(({ mode }) => ({
             }
           },
           {
-            urlPattern: /\.(?:png|jpg|jpeg|svg|gif)$/i,
+            urlPattern: /\.(?:png|jpg|jpeg|svg|gif|apk)$/i,
             handler: 'CacheFirst',
             options: {
               cacheName: 'images-cache',
@@ -72,7 +81,7 @@ export default defineConfig(({ mode }) => ({
           }
         ]
       },
-      includeAssets: ['favicon.ico', 'assets/brandLogo.png', 'robots.txt'],
+      includeAssets: ['favicon.ico', 'assets/brandLogo.png', 'robots.txt', 'app-release.apk'],
       manifest: {
         name: 'CalmSpace',
         short_name: 'CalmSpace',
@@ -101,7 +110,20 @@ export default defineConfig(({ mode }) => ({
           }
         ]
       }
-    })
+    }),
+    {
+      name: 'copy-apk-plugin',
+      closeBundle() {
+        try {
+          const source = path.resolve(__dirname, 'app-release.apk');
+          const destination = path.resolve(__dirname, 'dist', 'app-release.apk');
+          copyFileSync(source, destination);
+          console.log('Successfully copied APK file to build output');
+        } catch (err) {
+          console.error('Error copying APK file:', err);
+        }
+      }
+    }
   ].filter(Boolean),
   resolve: {
     alias: {
