@@ -16,16 +16,23 @@
           "value": "no-cache, no-store, must-revalidate"
         }
       ]
-    }
-  ],
-  "routes": [
+    },
     {
-      "src": "/app-release.apk",
-      "dest": "/app-release.apk",
-      "headers": {
-        "Content-Type": "application/vnd.android.package-archive",
-        "Content-Disposition": "attachment; filename=calmspace.apk"
-      }
+      "source": "/app-release.apk",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/vnd.android.package-archive"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "attachment; filename=calmspace.apk"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
     }
   ]
 } 
