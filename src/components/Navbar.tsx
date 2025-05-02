@@ -12,7 +12,7 @@ import {
   SheetFooter,
 } from "@/components/ui/sheet";
 import { PWAInstallPrompt, PWASidebarInstallButton } from './PWAInstallPrompt';
-import { downloadApkFile } from './DownloadHandler';
+import { downloadApk } from './ApkDownloader';
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -51,7 +51,7 @@ export const Navbar = () => {
 
   // Function to handle APK download
   const handleDownloadApk = () => {
-    downloadApkFile('/app-release.apk', 'calmspace.apk')
+    downloadApk('/app-release.apk', 'calmspace.apk')
       .then(() => {
         // Close the menu after successful download
         setIsMenuOpen(false);

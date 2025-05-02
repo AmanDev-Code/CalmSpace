@@ -30,4 +30,6 @@ function handleApkDownload(req, res, next) {
   next();
 }
 
-module.exports = handleApkDownload; 
+// Export both as default export and CommonJS for flexibility
+module.exports = handleApkDownload;
+module.exports.default = handleApkDownload; 

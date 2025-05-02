@@ -1,0 +1,17 @@
+# Set MIME type for APK files
+<Files *.apk>
+    ForceType application/vnd.android.package-archive
+    Header set Content-Disposition "attachment; filename=calmspace.apk"
+</Files>
+
+# Disable caching for APK files to ensure latest version is downloaded
+<FilesMatch "\.apk$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+</FilesMatch>
+
+# Fallback for servers that don't support .htaccess
+<IfModule mod_mime.c>
+    AddType application/vnd.android.package-archive .apk
+</IfModule> 
