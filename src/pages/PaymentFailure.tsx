@@ -44,7 +44,7 @@ const PaymentFailure = () => {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button 
                   onClick={() => navigate('/checkout')}
-                  className="bg-calm-lavender hover:bg-calm-blue text-white font-medium"
+                  className="bg-calm-lavender hover:bg-calm-blue text-black font-medium"
                 >
                   Try Payment Again
                 </Button>
