@@ -25,11 +25,46 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             
+            <!-- Custom URL scheme handler for our app -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="calmspace" android:host="app" />
+            </intent-filter>
+
+            <!-- Specific deep link for auth callback -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="calmspace" android:host="app" android:pathPrefix="/auth-callback" />
+            </intent-filter>
+
+            <!-- Add Firebase Auth intent filter -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="com.calmspace.haven" />
+            </intent-filter>
+
+            <!-- Add Vercel URL redirect handling -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https" 
+                      android:host="calm-space-gamma.vercel.app" />
+            </intent-filter>
+
+            <!-- Add HTTP redirect handling -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" 
+                      android:host="calm-space-gamma.vercel.app" />
             </intent-filter>
 
         </activity>

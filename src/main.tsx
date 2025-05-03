@@ -2,7 +2,6 @@ import { createRoot } from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 import './styles/android-fixes.css'
-import { registerSW } from 'virtual:pwa-register'
 
 // Detect platform and add appropriate class to body
 const detectPlatform = () => {
@@ -29,18 +28,7 @@ const detectPlatform = () => {
 // Run platform detection when DOM is loaded
 document.addEventListener('DOMContentLoaded', detectPlatform);
 
-// Register the service worker for PWA
-const updateSW = registerSW({
-  onNeedRefresh() {
-    // You can show a UI notification here if you want
-    if (confirm('New content available. Reload?')) {
-      updateSW(true)
-    }
-  },
-  onOfflineReady() {
-    // You can show a UI notification here if you want
-    console.log('App ready to work offline')
-  },
-})
+// No PWA registration for now - we'll handle this separately
+// This avoids build issues with virtual:pwa-register
 
 createRoot(document.getElementById("root")!).render(<App />);

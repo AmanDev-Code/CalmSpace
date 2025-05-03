@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "698644492205",
+    "project_id": "calmspace-haven",
+    "storage_bucket": "calmspace-haven.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:698644492205:android:07707224cf0351ed7e7b24",
+        "android_client_info": {
+          "package_name": "com.calmspace.haven"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "698644492205-jmvlt8n4dlc3cjqm1bfb9qr4knc1nvpi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.calmspace.haven",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "698644492205-jmvlt8n4dlc3cjqm1bfb9qr4knc1nvpi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnI93QsQwTbwdQojILOY3niJZTO1ucVPU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "698644492205-jmvlt8n4dlc3cjqm1bfb9qr4knc1nvpi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+} 

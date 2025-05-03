@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Menu, X, Download } from 'lucide-react';
+import { Menu, X, Download, LogIn, LogOut, User, Settings, Key } from 'lucide-react';
 import {
   Sheet,
   SheetContent,
@@ -13,11 +13,19 @@ import {
 } from "@/components/ui/sheet";
 import { PWAInstallPrompt, PWASidebarInstallButton } from './PWAInstallPrompt';
 import { downloadApk } from './ApkDownloader';
+import { NavbarAuth } from './NavbarAuth';
+import { useAuth } from '@/contexts/AuthContext';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { useToast } from '@/hooks/use-toast';
+import { useNavigate } from 'react-router-dom';
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAndroid, setIsAndroid] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const { currentUser, logout } = useAuth();
+  const { toast } = useToast();
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Detect Android platform and mobile device
@@ -60,6 +68,35 @@ export const Navbar = () => {
         console.error('Download failed:', error);
         alert('Failed to download the app. Please try again or contact support.');
       });
+  };
+
+  const getInitials = (name: string | null | undefined) => {
+    if (!name) return 'CS';
+    return name
+      .split(' ')
+      .map(part => part[0])
+      .join('')
+      .toUpperCase()
+      .substring(0, 2);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      toast({
+        title: "Logged Out Successfully",
+        description: "You have been signed out of your account."
+      });
+      setIsMenuOpen(false);
+      navigate('/');
+    } catch (error) {
+      console.error("Logout error:", error);
+      toast({
+        variant: "destructive",
+        title: "Logout Failed",
+        description: "An error occurred while signing out. Please try again."
+      });
+    }
   };
 
   const navLinks = [
@@ -115,6 +152,47 @@ export const Navbar = () => {
                   </SheetHeader>
                   
                   <div className="flex-1 overflow-auto bg-white">
+                    {/* User profile section if logged in */}
+                    {currentUser && (
+                      <div className="px-6 py-4 border-b border-gray-100 bg-white">
+                        <div className="flex items-center space-x-4">
+                          <Avatar className="h-12 w-12 border-2 border-calm-blue">
+                            <AvatarImage src={currentUser.photoURL || ''} alt={currentUser.displayName || 'User'} />
+                            <AvatarFallback className="bg-calm-lavender text-calm-gray">
+                              {getInitials(currentUser.displayName)}
+                            </AvatarFallback>
+                          </Avatar>
+                          <div className="flex-1">
+                            <p className="text-lg font-medium text-calm-gray">{currentUser.displayName || 'User'}</p>
+                            <p className="text-xs text-muted-foreground truncate">{currentUser.email}</p>
+                          </div>
+                        </div>
+                        <div className="grid grid-cols-2 gap-2 mt-4">
+                          <Button 
+                            variant="outline" 
+                            size="sm" 
+                            className="w-full"
+                            onClick={() => {
+                              setIsMenuOpen(false);
+                              navigate('/profile');
+                            }}
+                          >
+                            <User className="h-4 w-4 mr-1" />
+                            Profile
+                          </Button>
+                          <Button 
+                            variant="outline" 
+                            size="sm" 
+                            className="w-full text-red-500 hover:text-red-500 hover:border-red-500"
+                            onClick={handleLogout}
+                          >
+                            <LogOut className="h-4 w-4 mr-1" />
+                            Sign Out
+                          </Button>
+                        </div>
+                      </div>
+                    )}
+                    
                     {/* Show PWA install prompt at the top of the mobile menu */}
                   
                     
@@ -146,6 +224,27 @@ export const Navbar = () => {
                         </Link>
                       ))}
                       
+                      {/* Auth links for mobile */}
+                      {!currentUser && (
+                        <>
+                          <Link
+                            to="/login"
+                            className="text-calm-gray hover:text-calm-blue py-4 px-6 transition-colors duration-200 text-xl font-medium border-b border-gray-100 bg-white flex items-center"
+                            onClick={() => setIsMenuOpen(false)}
+                          >
+                            <LogIn className="h-5 w-5 mr-2" />
+                            Sign In
+                          </Link>
+                          <Link
+                            to="/signup"
+                            className="text-calm-gray hover:text-calm-blue py-4 px-6 transition-colors duration-200 text-xl font-medium border-b border-gray-100 bg-white"
+                            onClick={() => setIsMenuOpen(false)}
+                          >
+                            Create Account
+                          </Link>
+                        </>
+                      )}
+                      
                       {/* PWA Sidebar Install Button - always visible for easy access */}
                       <div className="px-6 py-3 border-b border-gray-100 bg-white">
                         <PWASidebarInstallButton />
@@ -173,22 +272,28 @@ export const Navbar = () => {
           </div>
           
           {/* Desktop navigation */}
-          <nav className="hidden md:flex items-center space-x-6">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.path}
-                className="text-calm-gray hover:text-calm-blue transition-colors duration-200 text-lg"
-              >
-                {link.name}
-              </Link>
-            ))}
+          <div className="hidden md:flex items-center space-x-2">
+            <nav className="flex items-center space-x-6 mr-4">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  to={link.path}
+                  className="text-calm-gray hover:text-calm-blue transition-colors duration-200 text-lg"
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </nav>
+            
+            {/* Auth component for desktop */}
+            <NavbarAuth />
+            
             <Link to="/book">
-              <Button className="bg-calm-lavender hover:bg-calm-blue text-calm-gray font-medium rounded-md transition-colors text-lg px-6 py-2">
+              <Button className="bg-calm-lavender hover:bg-calm-blue text-calm-gray font-medium rounded-md transition-colors text-lg px-6 py-2 ml-2">
                 Book a Session
               </Button>
             </Link>
-          </nav>
+          </div>
         </div>
       </div>
     </header>
