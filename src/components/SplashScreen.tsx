@@ -27,21 +27,29 @@ export const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
             // Check if this is an auth callback URL
             if (data.url.includes('auth-callback')) {
               console.log('Detected auth callback URL:', data.url);
+              console.log('Attempting to process Google auth result from deep link');
               
               // Check auth result
               try {
+                console.log('Calling getGoogleAuthResult');
                 const result = await getGoogleAuthResult();
+                console.log('Auth result after deep link:', result ? 'Got result' : 'No result');
+                
                 if (result && result.user) {
                   console.log('Google auth successful via deep link redirect');
+                  console.log('User info:', result.user.displayName, result.user.email);
                   toast({
                     title: "Login Successful",
                     description: `Welcome to CalmSpace${result.user.displayName ? ', ' + result.user.displayName : ''}!`,
                   });
                 } else {
                   console.log('No auth result found after deep link redirect');
+                  console.log('This might mean the auth callback URL was opened but no pending auth operation exists');
+                  console.log('Or the user might have denied permission in the Google auth flow');
                 }
               } catch (error) {
                 console.error('Error checking auth result after deep link:', error);
+                console.error('Error details:', JSON.stringify(error));
               }
             }
           });

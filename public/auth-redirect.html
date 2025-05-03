@@ -52,6 +52,16 @@
             background-color: #A288E3;
             color: white;
         }
+        #status {
+            margin-top: 20px;
+            color: #666;
+        }
+        #error {
+            color: #d9534f;
+            margin-top: 20px;
+            max-width: 80%;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -59,16 +69,69 @@
     <h1>Redirecting to CalmSpace</h1>
     <p>You have successfully signed in. Returning to the app...</p>
     <div class="spinner"></div>
+    <div id="status">Please wait...</div>
+    <div id="error"></div>
     <div class="manual-link">
         <p>If you are not automatically redirected,</p>
-        <a href="calmspace://app/auth-callback">Tap here to open the app</a>
+        <a href="calmspace://app/auth-callback" id="manual-link">Tap here to open the app</a>
     </div>
 
     <script>
-        // Try to redirect to the app after a short delay
-        setTimeout(function() {
-            window.location.href = "calmspace://app/auth-callback";
-        }, 1500);
+        // Log redirection for debugging
+        console.log("Auth redirect page loaded");
+        
+        // Store the custom scheme URL
+        const appScheme = "calmspace://app/auth-callback";
+        
+        // Get link element for updating
+        const manualLink = document.getElementById("manual-link");
+        const statusElement = document.getElementById("status");
+        const errorElement = document.getElementById("error");
+        
+        // Make sure link has the correct URL
+        manualLink.href = appScheme;
+        
+        // Log any URL parameters for debugging
+        const urlParams = new URLSearchParams(window.location.search);
+        console.log("URL parameters:", Object.fromEntries(urlParams.entries()));
+        
+        // Function to show error
+        function showError(message) {
+            errorElement.textContent = message;
+            errorElement.style.display = "block";
+            statusElement.textContent = "Error occurred. Please use the manual link below.";
+        }
+        
+        // Function to try various redirect methods
+        function tryOpenApp() {
+            try {
+                console.log("Attempting to redirect to app:", appScheme);
+                statusElement.textContent = "Opening app...";
+                
+                // Method 1: window.location
+                window.location.href = appScheme;
+                
+                // Method 2: After a short delay, try window.open
+                setTimeout(function() {
+                    try {
+                        window.open(appScheme, "_self");
+                    } catch (e) {
+                        console.error("Error with window.open:", e);
+                    }
+                }, 500);
+                
+                // Final status update
+                setTimeout(function() {
+                    statusElement.textContent = "If app didn't open automatically, tap the link below.";
+                }, 2500);
+            } catch (e) {
+                console.error("Error redirecting to app:", e);
+                showError("Could not redirect automatically: " + e.message);
+            }
+        }
+        
+        // Execute redirect after a very short delay
+        setTimeout(tryOpenApp, 300);
     </script>
 </body>
 </html> 
