@@ -11,7 +11,6 @@ import {
   SheetClose,
   SheetFooter,
 } from "@/components/ui/sheet";
-import { PWAInstallPrompt, PWASidebarInstallButton } from './PWAInstallPrompt';
 import { downloadApk } from './ApkDownloader';
 import { NavbarAuth } from './NavbarAuth';
 import { useAuth } from '@/contexts/AuthContext';
@@ -167,19 +166,7 @@ export const Navbar = () => {
                             <p className="text-xs text-muted-foreground truncate">{currentUser.email}</p>
                           </div>
                         </div>
-                        <div className="grid grid-cols-2 gap-2 mt-4">
-                          <Button 
-                            variant="outline" 
-                            size="sm" 
-                            className="w-full"
-                            onClick={() => {
-                              setIsMenuOpen(false);
-                              navigate('/profile');
-                            }}
-                          >
-                            <User className="h-4 w-4 mr-1" />
-                            Profile
-                          </Button>
+                        <div className="mt-4">
                           <Button 
                             variant="outline" 
                             size="sm" 
@@ -192,9 +179,6 @@ export const Navbar = () => {
                         </div>
                       </div>
                     )}
-                    
-                    {/* Show PWA install prompt at the top of the mobile menu */}
-                  
                     
                     {/* Show Android APK download button if on Android mobile */}
                     {isAndroid && isMobile && (
@@ -244,11 +228,6 @@ export const Navbar = () => {
                           </Link>
                         </>
                       )}
-                      
-                      {/* PWA Sidebar Install Button - always visible for easy access */}
-                      <div className="px-6 py-3 border-b border-gray-100 bg-white">
-                        <PWASidebarInstallButton />
-                      </div>
                       
                       <div className="px-6 py-6 bg-white">
                         <Link to="/book" onClick={() => setIsMenuOpen(false)}>

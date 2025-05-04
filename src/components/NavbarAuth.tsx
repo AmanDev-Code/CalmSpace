@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { 
@@ -12,12 +12,27 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
-import { LogOut, User, Settings, Key } from 'lucide-react';
+import { LogOut } from 'lucide-react';
 
 export const NavbarAuth = () => {
   const { currentUser, logout } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Check if device is mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      const userAgent = window.navigator.userAgent.toLowerCase();
+      setIsMobile(/android|iphone|ipad|ipod|mobile/i.test(userAgent));
+    };
+    
+    checkMobile();
+    
+    // Handle resize events
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -68,19 +83,23 @@ export const NavbarAuth = () => {
             </div>
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem className="cursor-pointer">
-            <User className="mr-2 h-4 w-4" />
-            <span>My Profile</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem className="cursor-pointer">
-            <Settings className="mr-2 h-4 w-4" />
-            <span>Account Settings</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem className="cursor-pointer">
-            <Key className="mr-2 h-4 w-4" />
-            <span>Change Password</span>
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
+          
+          {/* Only show these options on desktop */}
+          {!isMobile && (
+            <>
+              <DropdownMenuItem className="cursor-pointer" onClick={() => navigate('/profile')}>
+                <span>My Profile</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer" onClick={() => navigate('/settings')}>
+                <span>Account Settings</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer" onClick={() => navigate('/change-password')}>
+                <span>Change Password</span>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+            </>
+          )}
+          
           <DropdownMenuItem 
             className="cursor-pointer text-red-500 focus:text-red-500" 
             onClick={handleLogout}

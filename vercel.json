@@ -1,7 +1,4 @@
 {
-  "version": 2,
-  "buildCommand": "npm run vercel-build",
-  "outputDirectory": "dist",
   "headers": [
     {
       "source": "/(.*).apk",
@@ -66,24 +63,6 @@
           "value": "*"
         }
       ]
-    },
-    {
-      "source": "/check-assetlinks.html",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "no-cache, must-revalidate"
-        }
-      ]
-    },
-    {
-      "source": "/verify-technical-files.html",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "no-cache, must-revalidate"
-        }
-      ]
     }
   ],
   "rewrites": [
@@ -104,26 +83,8 @@
       "destination": "/sw.js"
     },
     {
-      "source": "/check-assetlinks.html",
-      "destination": "/check-assetlinks.html"
-    },
-    {
-      "source": "/verify-technical-files.html",
-      "destination": "/verify-technical-files.html"
-    },
-    {
-      "source": "/((?!api/|.well-known/|manifest.webmanifest|workbox-|sw.js|check-assetlinks.html|verify-technical-files.html).*)",
+      "source": "/((?!api/|.well-known/|manifest.webmanifest|workbox-|sw.js).*)",
       "destination": "/index.html"
     }
-  ],
-  "routes": [
-    { "handle": "filesystem" },
-    { "src": "/.well-known/assetlinks.json", "dest": "/.well-known/assetlinks.json", "status": 200 },
-    { "src": "/manifest.webmanifest", "dest": "/manifest.webmanifest", "status": 200 },
-    { "src": "/sw.js", "dest": "/sw.js", "status": 200 },
-    { "src": "/workbox-(.*)", "dest": "/workbox-$1", "status": 200 },
-    { "src": "/check-assetlinks.html", "dest": "/check-assetlinks.html", "status": 200 },
-    { "src": "/verify-technical-files.html", "dest": "/verify-technical-files.html", "status": 200 },
-    { "src": "/(.*)", "dest": "/index.html", "status": 200 }
   ]
 } 

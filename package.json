@@ -4,17 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "copy-assetlinks": "node copy-assetlinks.js",
-    "predev": "npm run copy-assetlinks",
     "dev": "vite --host",
-    "prebuild": "npm run copy-assetlinks",
     "build": "vite build",
-    "postbuild": "npm run copy-assetlinks",
-    "vercel-build": "bash vercel-build.sh || vercel-build.bat",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "serve": "node server.js"
+    "preview": "vite preview"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
@@ -89,8 +83,6 @@
     "tailwindcss": "^3.4.11",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.0.1",
-    "vite": "^5.4.1",
-    "vite-plugin-pwa": "^1.0.0",
-    "workbox-window": "^7.3.0"
+    "vite": "^5.4.1"
   }
 }

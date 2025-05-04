@@ -7,6 +7,23 @@
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",
+  "id": "/",
+  "scope": "/",
+  "categories": ["health", "lifestyle", "wellness"],
+  "screenshots": [
+    {
+      "src": "/pwa-screens/home-screen.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/pwa-screens/about-screen.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
   "icons": [
     {
       "src": "/pwa-icons/icon-192x192.png",
@@ -23,6 +40,41 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Home",
+      "url": "/",
+      "icons": [
+        {
+          "src": "/pwa-icons/icon-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Login",
+      "url": "/login",
+      "icons": [
+        {
+          "src": "/pwa-icons/icon-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Book Appointment",
+      "url": "/book",
+      "icons": [
+        {
+          "src": "/pwa-icons/icon-192x192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
     }
   ]
 } 
