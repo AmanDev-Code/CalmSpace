@@ -12,8 +12,25 @@ const ProtectedRoute = ({ children, requireAuth = false }: ProtectedRouteProps) 
   const { currentUser, loading } = useAuth();
   const location = useLocation();
   const [isMobileApp, setIsMobileApp] = useState(false);
+  
+  // List of technical paths that should bypass authentication
+  const technicalPaths = [
+    '/.well-known',
+    '/manifest.webmanifest',
+    '/sw.js',
+    '/workbox-',
+    '/assets/'
+  ];
+  
+  // Check if current path is a technical path
+  const isTechnicalPath = () => {
+    return technicalPaths.some(path => location.pathname.startsWith(path));
+  };
 
   useEffect(() => {
+    // Skip platform check for technical paths
+    if (isTechnicalPath()) return;
+    
     // Simple user agent detection for mobile devices
     const checkPlatform = () => {
       try {
@@ -37,7 +54,12 @@ const ProtectedRoute = ({ children, requireAuth = false }: ProtectedRouteProps) 
     };
     
     checkPlatform();
-  }, []);
+  }, [location.pathname]);
+
+  // For technical paths, bypass all authentication
+  if (isTechnicalPath()) {
+    return <>{children}</>;
+  }
 
   // Show loading state while authentication is being determined
   if (loading) {

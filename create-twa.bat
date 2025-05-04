@@ -35,6 +35,18 @@ if "%DEPLOYED_URL%"=="" (
     exit /b
 )
 
+:: Ensure .well-known directory exists and create assetlinks.json
+echo.
+echo 📄 Creating or updating Digital Asset Links file...
+if not exist "public\.well-known" mkdir "public\.well-known"
+
+:: Create assetlinks.json with the correct content
+echo [{"relation":["delegate_permission/common.handle_all_urls"],"target":{"namespace":"android_app","package_name":"com.calmspace.haven","sha256_cert_fingerprints":["59:77:CC:93:3B:B4:A4:CD:0F:C3:D9:C5:99:E7:F2:51:B8:04:CE:F0:55:2E:43:EA:5D:E0:35:14:E4:41:07:E3"]}}] > "public\.well-known\assetlinks.json"
+
+echo ✅ Created assetlinks.json file at public/.well-known/assetlinks.json
+echo 🔗 Your Digital Asset Links URL will be: %DEPLOYED_URL%/.well-known/assetlinks.json
+echo.
+
 :: Go to / create twa-build
 echo.
 echo 📁 Creating or switching to twa-build directory...
@@ -91,5 +103,11 @@ copy app-release-signed.apk ..\public\calmspace-twa.apk >nul
 cd ..
 echo ✅ APK copied to /public/calmspace-twa.apk
 echo.
+
+:: Final instructions
+echo 🔍 IMPORTANT: To test TWA integration, you must:
+echo 1. Deploy your app to %DEPLOYED_URL%
+echo 2. Verify assetlinks.json is accessible at %DEPLOYED_URL%/.well-known/assetlinks.json
+echo 3. Install the APK on your Android device and test integration
 
 pause

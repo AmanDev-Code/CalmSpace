@@ -9,13 +9,34 @@ interface MobileAppWrapperProps {
 
 const MobileAppWrapper: React.FC<MobileAppWrapperProps> = ({ children }) => {
   const [isMobileApp, setIsMobileApp] = useState(false);
-  const [showSplash, setShowSplash] = useState(true);
+  const [showSplash, setShowSplash] = useState(false); // Initialize as false until we check path
   const { currentUser, loading } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   
+  // List of technical paths that should be accessible without authentication or splash screen
+  const technicalPaths = [
+    '/.well-known',
+    '/manifest.webmanifest',
+    '/sw.js',
+    '/workbox-',
+    '/assets/'
+  ];
+  
+  // Check if current path is a technical path that should bypass auth/splash
+  const isTechnicalPath = () => {
+    return technicalPaths.some(path => location.pathname.startsWith(path));
+  };
+  
   // Check if we're running in a mobile environment - simple user agent detection
   useEffect(() => {
+    // Skip setup for technical paths
+    if (isTechnicalPath()) {
+      console.log("Technical path detected, skipping mobile app wrapper:", location.pathname);
+      setShowSplash(false);
+      return;
+    }
+    
     const checkPlatform = () => {
       try {
         // Use user agent detection
@@ -42,10 +63,13 @@ const MobileAppWrapper: React.FC<MobileAppWrapperProps> = ({ children }) => {
     };
     
     checkPlatform();
-  }, []);
+  }, [location.pathname]);
 
   // Handle authentication and redirection after the app loads or restarts
   useEffect(() => {
+    // Skip for technical paths
+    if (isTechnicalPath()) return;
+    
     // Only run this effect once loading is complete
     if (loading) return;
 
@@ -73,7 +97,12 @@ const MobileAppWrapper: React.FC<MobileAppWrapperProps> = ({ children }) => {
     console.log("Splash screen finished, authentication status:", currentUser ? "Authenticated" : "Not authenticated");
   };
   
-  // Always show splash screen in mobile mode at startup
+  // For technical paths, just render the children without splash or protection
+  if (isTechnicalPath()) {
+    return <>{children}</>;
+  }
+  
+  // Show splash screen in mobile mode at startup (if not a technical path)
   if (showSplash) {
     return <SplashScreen onFinish={handleSplashFinish} />;
   }
