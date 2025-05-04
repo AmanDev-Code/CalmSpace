@@ -23,7 +23,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen text-slate-800 bg-white overflow-x-hidden">
+    <div className="flex flex-col min-h-screen text-slate-800 bg-white overflow-x-hidden ">
       <Navbar />
       <div className={`flex-grow relative z-0 isolate ${isAndroid ? 'layout-container' : ''}`}>
         <main>{children}</main>

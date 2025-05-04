@@ -64,7 +64,7 @@ export const NavbarAuth = () => {
   
   if (currentUser) {
     return (
-      <DropdownMenu>
+      <DropdownMenu  >
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="relative h-10 w-10 rounded-full">
             <Avatar className="h-10 w-10 border-2 border-calm-blue">
@@ -75,7 +75,7 @@ export const NavbarAuth = () => {
             </Avatar>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-56" align="end">
+        <DropdownMenuContent className="w-56 z-99999999" align="end">
           <DropdownMenuLabel>
             <div className="flex flex-col space-y-1">
               <p className="text-sm font-medium">{currentUser.displayName || 'User'}</p>
@@ -85,20 +85,7 @@ export const NavbarAuth = () => {
           <DropdownMenuSeparator />
           
           {/* Only show these options on desktop */}
-          {!isMobile && (
-            <>
-              <DropdownMenuItem className="cursor-pointer" onClick={() => navigate('/profile')}>
-                <span>My Profile</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer" onClick={() => navigate('/settings')}>
-                <span>Account Settings</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer" onClick={() => navigate('/change-password')}>
-                <span>Change Password</span>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-            </>
-          )}
+         
           
           <DropdownMenuItem 
             className="cursor-pointer text-red-500 focus:text-red-500" 

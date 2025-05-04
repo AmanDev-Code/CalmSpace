@@ -58,12 +58,12 @@ export const Navbar = () => {
 
   // Function to handle APK download
   const handleDownloadApk = () => {
-    downloadApk('/app-release.apk', 'calmspace.apk')
+    downloadApk('/CalmSpace.apk', 'CalmSpace.apk')
       .then(() => {
         // Close the menu after successful download
         setIsMenuOpen(false);
       })
-      .catch((error) => {
+      .catch((error: unknown) => {
         console.error('Download failed:', error);
         alert('Failed to download the app. Please try again or contact support.');
       });
@@ -108,7 +108,7 @@ export const Navbar = () => {
   ];
 
   return (
-    <header className={`sticky top-0 w-full z-[100] bg-white/80 backdrop-blur-md shadow-sm ${isAndroid ? 'android-header-minimal-gap' : ''}`}>
+    <header className={`sticky top-0 w-full  bg-white/80 backdrop-blur-md shadow-sm ${isAndroid ? 'android-header-minimal-gap' : ''}`}>
       <div className="container mx-auto px-4 py-2">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center">
@@ -135,13 +135,7 @@ export const Navbar = () => {
               <SheetContent side="right" className="p-0 w-4/5 max-w-xs bg-white border-l border-gray-200">
                 <div className="flex flex-col h-full">
                   <SheetHeader className="px-6 py-4 border-b border-gray-100 bg-white">
-                    <div className="flex items-center justify-center pb-2">
-                      <img 
-                        src="/assets/brandLogo.png" 
-                        alt="CalmSpace Logo" 
-                        className="h-16 w-auto" 
-                      />
-                    </div>
+                    
                     <SheetTitle className="text-center text-calm-gray text-2xl font-playfair font-bold">
                       CalmSpace
                     </SheetTitle>
