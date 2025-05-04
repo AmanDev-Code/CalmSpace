@@ -1,66 +1,52 @@
-// Capacitor utility functions
-import { Capacitor } from '@capacitor/core';
-import { SplashScreen } from '@capacitor/splash-screen';
-import { getRedirectResult } from 'firebase/auth';
-import { auth } from './firebase';
+// Modified utility functions (without Capacitor dependencies)
 
-// Check if running in a Capacitor native app
+/**
+ * Check if running in a mobile app environment
+ * Now uses basic user agent detection instead of Capacitor
+ */
 export const isNativeApp = (): boolean => {
-  return Capacitor.isNativePlatform();
+  return false; // Always return false since we're removing native app functionality
 };
 
-// Check platform type
+/**
+ * Get the current platform
+ * Now uses basic user agent detection instead of Capacitor
+ */
 export const getPlatform = (): string => {
-  return Capacitor.getPlatform();
+  const userAgent = window.navigator.userAgent.toLowerCase();
+  if (/iphone|ipad|ipod/.test(userAgent)) return 'ios';
+  if (/android/.test(userAgent)) return 'web'; // Changed from 'android' to 'web'
+  return 'web';
 };
 
-// Get Google Auth redirect result
+/**
+ * This function is now a no-op since we're not using Capacitor
+ */
 export const getGoogleAuthResult = async () => {
-  if (!isNativeApp()) return null;
-
-  try {
-    console.log("Checking for Google Auth redirect result in capacitorUtils...");
-    const result = await getRedirectResult(auth);
-    console.log("Redirect result:", result ? "Found" : "None");
-    return result;
-  } catch (error) {
-    console.error("Error getting Google Auth redirect result:", error);
-    return null;
-  }
+  console.log("getGoogleAuthResult is a no-op in web mode");
+  return null;
 };
 
-// Hide the native splash screen
+/**
+ * This function is now a no-op since we're not using Capacitor
+ */
 export const hideSplashScreen = async (): Promise<void> => {
-  try {
-    if (isNativeApp()) {
-      await SplashScreen.hide();
-      console.log('Native splash screen hidden');
-    }
-  } catch (error) {
-    console.error('Error hiding splash screen:', error);
-  }
+  console.log("hideSplashScreen is a no-op in web mode");
+  return;
 };
 
-// Show the native splash screen
+/**
+ * This function is now a no-op since we're not using Capacitor
+ */
 export const showSplashScreen = async (): Promise<void> => {
-  try {
-    if (isNativeApp()) {
-      await SplashScreen.show();
-      console.log('Native splash screen shown');
-    }
-  } catch (error) {
-    console.error('Error showing splash screen:', error);
-  }
+  console.log("showSplashScreen is a no-op in web mode");
+  return;
 };
 
-// Initialize Capacitor plugins
+/**
+ * Initialize plugins (now a no-op)
+ */
 export const initCapacitorPlugins = (): void => {
-  try {
-    if (isNativeApp()) {
-      console.log('Initializing Capacitor plugins');
-      // Add other plugin initializations here as needed
-    }
-  } catch (error) {
-    console.error('Error initializing Capacitor plugins:', error);
-  }
+  console.log('Capacitor plugins not available in web mode');
+  return;
 }; 

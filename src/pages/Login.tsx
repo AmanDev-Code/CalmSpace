@@ -9,7 +9,9 @@ import { Loader2, Mail, Lock, Eye, EyeOff, CheckCircle } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
 import { isEmailVerified } from '@/lib/otpService';
-import { isNativeApp } from '@/lib/capacitorUtils';
+
+// Simple replacement for isNativeApp
+const isNativeApp = () => false;
 
 interface LocationState {
   verifiedEmail?: string;

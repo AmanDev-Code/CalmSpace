@@ -24,17 +24,10 @@ import EmailVerification from "./pages/EmailVerification";
 import { AuthProvider } from "./contexts/AuthContext";
 import MobileAppWrapper from "./components/MobileAppWrapper";
 import ProtectedRoute from "./components/ProtectedRoute";
-import { useEffect } from "react";
-import { initCapacitorPlugins } from "./lib/capacitorUtils";
 
 const queryClient = new QueryClient();
 
 const App = () => {
-  // Initialize Capacitor plugins on app start
-  useEffect(() => {
-    initCapacitorPlugins();
-  }, []);
-
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>

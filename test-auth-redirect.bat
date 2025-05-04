@@ -1,0 +1,6 @@
+@echo off 
+echo Testing direct auth redirect... 
+adb -s adb-ef7a0d3c-Up1J0y._adb-tls-connect._tcp shell am start -a android.intent.action.VIEW -d "https://calm-space-gamma.vercel.app/auth-redirect.html?debug=true" 
+echo. 
+echo Starting logs to monitor redirect handling... 
+adb -s adb-ef7a0d3c-Up1J0y._adb-tls-connect._tcp logcat -v time *:I | findstr -i "calmspace auth firebase google intent redirect deep" 

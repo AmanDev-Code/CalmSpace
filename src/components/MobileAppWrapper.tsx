@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import SplashScreen from './SplashScreen';
-import { isNativeApp, getGoogleAuthResult, getPlatform } from '@/lib/capacitorUtils';
 
 interface MobileAppWrapperProps {
   children: React.ReactNode;
@@ -15,31 +14,22 @@ const MobileAppWrapper: React.FC<MobileAppWrapperProps> = ({ children }) => {
   const location = useLocation();
   const navigate = useNavigate();
   
-  // Check if we're running in a mobile environment - more aggressive detection
+  // Check if we're running in a mobile environment - simple user agent detection
   useEffect(() => {
-    const checkPlatform = async () => {
+    const checkPlatform = () => {
       try {
-        // Check platform using Capacitor
-        const platform = getPlatform();
-        console.log("Detected platform:", platform);
-        
-        // Check if running in a native app
-        const isNative = isNativeApp();
-        console.log("Is native app:", isNative);
-        
-        // Fallback to user agent detection if needed
+        // Use user agent detection
         const userAgent = window.navigator.userAgent.toLowerCase();
         const isAndroid = /android/.test(userAgent);
         const isIOS = /iphone|ipad|ipod/.test(userAgent);
         
-        // Prioritize Capacitor detection but fallback to user agent
-        const isMobile = isNative || isAndroid || isIOS || platform === 'android' || platform === 'ios';
+        const isMobile = isAndroid || isIOS;
         console.log("Is mobile environment:", isMobile);
         
         setIsMobileApp(isMobile);
         
         if (isMobile) {
-          console.log("Mobile app detected - initializing mobile flow");
+          console.log("Mobile browser detected");
           document.body.classList.add('mobile-app');
           
           // Force enabling the splash screen in mobile mode
@@ -47,10 +37,7 @@ const MobileAppWrapper: React.FC<MobileAppWrapperProps> = ({ children }) => {
         }
       } catch (error) {
         console.error("Error detecting platform:", error);
-        // Fallback to user agent detection in case of error
-        const userAgent = window.navigator.userAgent.toLowerCase();
-        const isMobile = /android|iphone|ipad|ipod/.test(userAgent);
-        setIsMobileApp(isMobile);
+        setIsMobileApp(false);
       }
     };
     

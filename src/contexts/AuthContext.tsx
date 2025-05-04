@@ -9,8 +9,10 @@ import {
   onAuthStateChange,
   getGoogleAuthResult
 } from '@/lib/firebase';
-import { isNativeApp } from '@/lib/capacitorUtils';
 import { useToast } from '@/hooks/use-toast';
+
+// Simple replacement for isNativeApp
+const isNativeApp = () => false;
 
 interface AuthContextType {
   currentUser: User | null;

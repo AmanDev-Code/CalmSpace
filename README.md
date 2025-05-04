@@ -145,6 +145,24 @@ CalmSpace is configured as a Progressive Web App, allowing users to:
 
 For PWA setup details, see the `PWA-SETUP.md` file.
 
+## Android App (TWA)
+
+CalmSpace can be converted into an Android app using Trusted Web Activities (TWA) technology, which provides a native app experience without code duplication:
+
+- **Full-screen experience** without browser UI
+- **Native look and feel** with splash screens and app icons
+- **Google Sign-In** works seamlessly
+- **Small app size** compared to native apps
+- **Automatic updates** through the web app
+
+To build the Android app:
+
+1. Follow the instructions in `TWA-SETUP-GUIDE.md`
+2. Run the `create-twa.bat` script (Windows) or `create-twa.sh` script (Linux/Mac)
+3. Deploy the generated APK to Google Play Store or distribute directly
+
+The TWA approach solves common authentication and redirection issues by leveraging the Chrome browser's capabilities.
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
