@@ -39,13 +39,13 @@ def twaManifest = [
     // - short_name: Shorter string used if |name| is too long.
     // - url: Absolute path of the URL to launch the app with (e.g '/create').
     // - icon: Name of the resource in the drawable folder to use as an icon.
-    shortcuts: [],
+    shortcuts: [[name:'Home', short_name:'Home', url:'https://calm-space-gamma.vercel.app/', icon:'shortcut_0'],[name:'Login', short_name:'Login', url:'https://calm-space-gamma.vercel.app/login', icon:'shortcut_1'],[name:'Book Appointment', short_name:'Book Appoint', url:'https://calm-space-gamma.vercel.app/book', icon:'shortcut_2']],
     // The duration of fade out animation in milliseconds to be played when removing splash screen.
     splashScreenFadeOutDuration: 300,
     generatorApp: 'bubblewrap-cli', // Application that generated the Android Project
     // The fallback strategy for when Trusted Web Activity is not available. Possible values are
     // 'customtabs' and 'webview'.
-    fallbackType: 'none',
+    fallbackType: 'customtabs',
     enableSiteSettingsShortcut: 'true',
     orientation: 'portrait',
 ]
@@ -57,8 +57,8 @@ android {
         applicationId "com.calmspace.haven"
         minSdkVersion 21
         targetSdkVersion 35
-        versionCode 3
-        versionName "3"
+        versionCode 1
+        versionName "1"
 
         // The name for the application
         resValue "string", "appName", twaManifest.name

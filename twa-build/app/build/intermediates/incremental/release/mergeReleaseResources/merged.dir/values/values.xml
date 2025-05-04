@@ -126,7 +126,7 @@
     <string name="call_notification_ongoing_text">Ongoing call</string>
     <string name="call_notification_screening_text">Screening an incoming call</string>
     <string name="copy_toast_msg">Link copied to clipboard</string>
-    <string name="fallbackType" translatable="false">none</string>
+    <string name="fallbackType" translatable="false">customtabs</string>
     <string name="fallback_menu_item_copy_link">Copy link</string>
     <string name="fallback_menu_item_open_in_browser">Open in browser</string>
     <string name="fallback_menu_item_share_link">Share link</string>
@@ -140,6 +140,12 @@
     <string name="no_provider_toast">Please install Chrome Stable 72 or later.</string>
     <string name="orientation" translatable="false">portrait</string>
     <string name="providerAuthority" translatable="false">com.calmspace.haven.fileprovider</string>
+    <string name="shortcut_name_0" translatable="false">Home</string>
+    <string name="shortcut_name_1" translatable="false">Login</string>
+    <string name="shortcut_name_2" translatable="false">Book Appointment</string>
+    <string name="shortcut_short_name_0" translatable="false">Home</string>
+    <string name="shortcut_short_name_1" translatable="false">Login</string>
+    <string name="shortcut_short_name_2" translatable="false">Book Appoint</string>
     <string name="status_bar_notification_info_overflow">999+</string>
     <string name="update_chrome_toast">Please update to Chrome Stable 72 or later.</string>
     <string name="webManifestUrl" translatable="false">https://calm-space-gamma.vercel.app/manifest.webmanifest</string>

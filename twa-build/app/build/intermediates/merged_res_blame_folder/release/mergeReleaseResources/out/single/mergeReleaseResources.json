@@ -1,11 +1,23 @@
 [
     {
+        "merged": "com.calmspace.haven.app-release-18:/drawable-xxxhdpi_shortcut_2.png.flat",
+        "source": "com.calmspace.haven.app-main-19:/drawable-xxxhdpi/shortcut_2.png"
+    },
+    {
         "merged": "com.calmspace.haven.app-release-18:/mipmap-anydpi-v26_ic_launcher.xml.flat",
         "source": "com.calmspace.haven.app-main-19:/mipmap-anydpi-v26/ic_launcher.xml"
     },
     {
         "merged": "com.calmspace.haven.app-release-18:/mipmap-hdpi_ic_maskable.png.flat",
         "source": "com.calmspace.haven.app-main-19:/mipmap-hdpi/ic_maskable.png"
+    },
+    {
+        "merged": "com.calmspace.haven.app-release-18:/drawable-xxhdpi_shortcut_1.png.flat",
+        "source": "com.calmspace.haven.app-main-19:/drawable-xxhdpi/shortcut_1.png"
+    },
+    {
+        "merged": "com.calmspace.haven.app-release-18:/drawable-mdpi_shortcut_1.png.flat",
+        "source": "com.calmspace.haven.app-main-19:/drawable-mdpi/shortcut_1.png"
     },
     {
         "merged": "com.calmspace.haven.app-release-18:/mipmap-mdpi_ic_launcher.png.flat",
@@ -28,6 +40,10 @@
         "source": "com.calmspace.haven.app-main-19:/mipmap-xhdpi/ic_maskable.png"
     },
     {
+        "merged": "com.calmspace.haven.app-release-18:/drawable-xhdpi_shortcut_0.png.flat",
+        "source": "com.calmspace.haven.app-main-19:/drawable-xhdpi/shortcut_0.png"
+    },
+    {
         "merged": "com.calmspace.haven.app-release-18:/drawable-hdpi_splash.png.flat",
         "source": "com.calmspace.haven.app-main-19:/drawable-hdpi/splash.png"
     },
@@ -36,12 +52,24 @@
         "source": "com.calmspace.haven.app-main-19:/xml/shortcuts.xml"
     },
     {
+        "merged": "com.calmspace.haven.app-release-18:/drawable-hdpi_shortcut_0.png.flat",
+        "source": "com.calmspace.haven.app-main-19:/drawable-hdpi/shortcut_0.png"
+    },
+    {
         "merged": "com.calmspace.haven.app-release-18:/drawable-mdpi_splash.png.flat",
         "source": "com.calmspace.haven.app-main-19:/drawable-mdpi/splash.png"
     },
     {
         "merged": "com.calmspace.haven.app-release-18:/raw_web_app_manifest.json.flat",
         "source": "com.calmspace.haven.app-main-19:/raw/web_app_manifest.json"
+    },
+    {
+        "merged": "com.calmspace.haven.app-release-18:/drawable-mdpi_shortcut_2.png.flat",
+        "source": "com.calmspace.haven.app-main-19:/drawable-mdpi/shortcut_2.png"
+    },
+    {
+        "merged": "com.calmspace.haven.app-release-18:/drawable-hdpi_shortcut_2.png.flat",
+        "source": "com.calmspace.haven.app-main-19:/drawable-hdpi/shortcut_2.png"
     },
     {
         "merged": "com.calmspace.haven.app-release-18:/mipmap-xhdpi_ic_launcher.png.flat",
@@ -56,8 +84,28 @@
         "source": "com.calmspace.haven.app-main-19:/mipmap-hdpi/ic_launcher.png"
     },
     {
+        "merged": "com.calmspace.haven.app-release-18:/drawable-mdpi_shortcut_0.png.flat",
+        "source": "com.calmspace.haven.app-main-19:/drawable-mdpi/shortcut_0.png"
+    },
+    {
+        "merged": "com.calmspace.haven.app-release-18:/drawable-xhdpi_shortcut_2.png.flat",
+        "source": "com.calmspace.haven.app-main-19:/drawable-xhdpi/shortcut_2.png"
+    },
+    {
+        "merged": "com.calmspace.haven.app-release-18:/drawable-xxhdpi_shortcut_0.png.flat",
+        "source": "com.calmspace.haven.app-main-19:/drawable-xxhdpi/shortcut_0.png"
+    },
+    {
+        "merged": "com.calmspace.haven.app-release-18:/drawable-xxxhdpi_shortcut_1.png.flat",
+        "source": "com.calmspace.haven.app-main-19:/drawable-xxxhdpi/shortcut_1.png"
+    },
+    {
         "merged": "com.calmspace.haven.app-release-18:/drawable-xxxhdpi_ic_notification_icon.png.flat",
         "source": "com.calmspace.haven.app-main-19:/drawable-xxxhdpi/ic_notification_icon.png"
+    },
+    {
+        "merged": "com.calmspace.haven.app-release-18:/drawable-xxhdpi_shortcut_2.png.flat",
+        "source": "com.calmspace.haven.app-main-19:/drawable-xxhdpi/shortcut_2.png"
     },
     {
         "merged": "com.calmspace.haven.app-release-18:/mipmap-xxxhdpi_ic_maskable.png.flat",
@@ -84,8 +132,16 @@
         "source": "com.calmspace.haven.app-main-19:/drawable-xhdpi/splash.png"
     },
     {
+        "merged": "com.calmspace.haven.app-release-18:/drawable-xhdpi_shortcut_1.png.flat",
+        "source": "com.calmspace.haven.app-main-19:/drawable-xhdpi/shortcut_1.png"
+    },
+    {
         "merged": "com.calmspace.haven.app-release-18:/drawable-xxhdpi_ic_notification_icon.png.flat",
         "source": "com.calmspace.haven.app-main-19:/drawable-xxhdpi/ic_notification_icon.png"
+    },
+    {
+        "merged": "com.calmspace.haven.app-release-18:/drawable-hdpi_shortcut_1.png.flat",
+        "source": "com.calmspace.haven.app-main-19:/drawable-hdpi/shortcut_1.png"
     },
     {
         "merged": "com.calmspace.haven.app-release-18:/mipmap-mdpi_ic_maskable.png.flat",
@@ -98,5 +154,9 @@
     {
         "merged": "com.calmspace.haven.app-release-18:/drawable-anydpi_shortcut_legacy_background.xml.flat",
         "source": "com.calmspace.haven.app-main-19:/drawable-anydpi/shortcut_legacy_background.xml"
+    },
+    {
+        "merged": "com.calmspace.haven.app-release-18:/drawable-xxxhdpi_shortcut_0.png.flat",
+        "source": "com.calmspace.haven.app-main-19:/drawable-xxxhdpi/shortcut_0.png"
     }
 ]

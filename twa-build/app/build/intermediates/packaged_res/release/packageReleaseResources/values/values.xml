@@ -22,7 +22,7 @@
     }]
     
   </string>
-    <string name="fallbackType" translatable="false">none</string>
+    <string name="fallbackType" translatable="false">customtabs</string>
     <string name="fullScopeUrl" translatable="false">https://calm-space-gamma.vercel.app/</string>
     <string name="generatorApp" translatable="false">bubblewrap-cli</string>
     <string name="hostName" translatable="false">calm-space-gamma.vercel.app</string>
@@ -30,5 +30,11 @@
     <string name="launcherName" translatable="false">CalmSpace</string>
     <string name="orientation" translatable="false">portrait</string>
     <string name="providerAuthority" translatable="false">com.calmspace.haven.fileprovider</string>
+    <string name="shortcut_name_0" translatable="false">Home</string>
+    <string name="shortcut_name_1" translatable="false">Login</string>
+    <string name="shortcut_name_2" translatable="false">Book Appointment</string>
+    <string name="shortcut_short_name_0" translatable="false">Home</string>
+    <string name="shortcut_short_name_1" translatable="false">Login</string>
+    <string name="shortcut_short_name_2" translatable="false">Book Appoint</string>
     <string name="webManifestUrl" translatable="false">https://calm-space-gamma.vercel.app/manifest.webmanifest</string>
 </resources>
