@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CalmSpace Assetlinks Checker</title>
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+        .success {
+            color: green;
+            font-weight: bold;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+        button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>CalmSpace Assetlinks.json Checker</h1>
+    <p>This tool checks if the <code>/.well-known/assetlinks.json</code> file is being properly served.</p>
+    
+    <button id="checkButton">Check Assetlinks.json</button>
+    <p id="status">Click the button to check.</p>
+    
+    <h3>Results:</h3>
+    <div id="headers"></div>
+    <h3>Content:</h3>
+    <pre id="content"></pre>
+    
+    <h3>Direct Link:</h3>
+    <p><a href="/.well-known/assetlinks.json" target="_blank">Open assetlinks.json in new tab</a></p>
+    
+    <script>
+        document.getElementById('checkButton').addEventListener('click', async () => {
+            const statusElement = document.getElementById('status');
+            const headersElement = document.getElementById('headers');
+            const contentElement = document.getElementById('content');
+            
+            statusElement.textContent = "Checking...";
+            headersElement.innerHTML = "";
+            contentElement.textContent = "";
+            
+            try {
+                // Add cache buster to avoid caching issues
+                const timestamp = new Date().getTime();
+                const response = await fetch(`/.well-known/assetlinks.json?v=${timestamp}`);
+                
+                if (response.ok) {
+                    statusElement.className = "success";
+                    statusElement.textContent = `Success! Status: ${response.status} ${response.statusText}`;
+                    
+                    // Display headers
+                    let headersHtml = "<strong>Response Headers:</strong><br>";
+                    response.headers.forEach((value, key) => {
+                        headersHtml += `${key}: ${value}<br>`;
+                    });
+                    headersElement.innerHTML = headersHtml;
+                    
+                    // Display content
+                    const content = await response.text();
+                    try {
+                        // Try to format as JSON
+                        const formattedJson = JSON.stringify(JSON.parse(content), null, 2);
+                        contentElement.textContent = formattedJson;
+                    } catch (e) {
+                        // If not valid JSON, just show the raw text
+                        contentElement.textContent = content;
+                    }
+                } else {
+                    statusElement.className = "error";
+                    statusElement.textContent = `Error! Status: ${response.status} ${response.statusText}`;
+                }
+            } catch (error) {
+                statusElement.className = "error";
+                statusElement.textContent = `Error: ${error.message}`;
+            }
+        });
+    </script>
+</body>
+</html> 

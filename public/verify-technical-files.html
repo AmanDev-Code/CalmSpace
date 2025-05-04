@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CalmSpace Technical Files Verifier</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .file-status {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .loading {
+            background-color: #f8f9fa;
+        }
+        .success {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+        .error {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+        .file-content {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+        button {
+            padding: 8px 16px;
+            background-color: #A288E3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #8a6fd6;
+        }
+    </style>
+</head>
+<body>
+    <h1>CalmSpace Technical Files Verification</h1>
+    <p>This page checks if critical PWA and TWA files are being properly served on your deployed site.</p>
+    
+    <button id="check-files">Check Technical Files</button>
+    
+    <div id="assetlinks-status" class="file-status loading">
+        <h3>/.well-known/assetlinks.json</h3>
+        <p>Status: <span id="assetlinks-result">Not checked yet</span></p>
+        <div id="assetlinks-content" class="file-content"></div>
+    </div>
+    
+    <div id="manifest-status" class="file-status loading">
+        <h3>/manifest.webmanifest</h3>
+        <p>Status: <span id="manifest-result">Not checked yet</span></p>
+        <div id="manifest-content" class="file-content"></div>
+    </div>
+    
+    <div id="sw-status" class="file-status loading">
+        <h3>/sw.js</h3>
+        <p>Status: <span id="sw-result">Not checked yet</span></p>
+    </div>
+    
+    <h2>How to Fix Issues</h2>
+    <ul>
+        <li><strong>404 for assetlinks.json:</strong> Make sure the file exists in the correct location and your Vercel configuration is properly set up</li>
+        <li><strong>404 for manifest.webmanifest:</strong> Check that your PWA configuration is using the correct manifest path</li>
+        <li><strong>Content-Type issues:</strong> Update the headers in your vercel.json configuration</li>
+        <li><strong>Cache issues:</strong> Try clearing browser cache or adding ?v=timestamp to URLs</li>
+    </ul>
+    
+    <script>
+        document.getElementById('check-files').addEventListener('click', async () => {
+            // Check assetlinks.json
+            await checkFile(
+                '/.well-known/assetlinks.json', 
+                'assetlinks-status', 
+                'assetlinks-result', 
+                'assetlinks-content'
+            );
+            
+            // Check manifest.webmanifest
+            await checkFile(
+                '/manifest.webmanifest', 
+                'manifest-status', 
+                'manifest-result', 
+                'manifest-content'
+            );
+            
+            // Check SW
+            await checkFile(
+                '/sw.js', 
+                'sw-status', 
+                'sw-result'
+            );
+        });
+        
+        async function checkFile(path, statusDiv, resultSpan, contentDiv = null) {
+            const statusElement = document.getElementById(statusDiv);
+            const resultElement = document.getElementById(resultSpan);
+            
+            // Reset status
+            statusElement.className = 'file-status loading';
+            resultElement.textContent = 'Checking...';
+            
+            try {
+                // Add cache-busting query parameter
+                const cacheBuster = `?v=${Date.now()}`;
+                const response = await fetch(path + cacheBuster);
+                
+                if (response.ok) {
+                    statusElement.className = 'file-status success';
+                    resultElement.textContent = `✅ Success (${response.status} ${response.statusText})`;
+                    
+                    if (contentDiv) {
+                        const contentElement = document.getElementById(contentDiv);
+                        const contentType = response.headers.get('Content-Type');
+                        
+                        // If it's JSON, try to pretty-print it
+                        if (contentType && contentType.includes('json')) {
+                            const data = await response.json();
+                            contentElement.textContent = JSON.stringify(data, null, 2);
+                        } else {
+                            const text = await response.text();
+                            contentElement.textContent = text.slice(0, 500) + (text.length > 500 ? '...' : '');
+                        }
+                    }
+                } else {
+                    statusElement.className = 'file-status error';
+                    resultElement.textContent = `❌ Error (${response.status} ${response.statusText})`;
+                }
+            } catch (error) {
+                statusElement.className = 'file-status error';
+                resultElement.textContent = `❌ Error: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html> 

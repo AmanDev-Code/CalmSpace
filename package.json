@@ -4,11 +4,17 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "copy-assetlinks": "node copy-assetlinks.js",
+    "predev": "npm run copy-assetlinks",
     "dev": "vite --host",
+    "prebuild": "npm run copy-assetlinks",
     "build": "vite build",
+    "postbuild": "npm run copy-assetlinks",
+    "vercel-build": "bash vercel-build.sh || vercel-build.bat",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "serve": "node server.js"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
