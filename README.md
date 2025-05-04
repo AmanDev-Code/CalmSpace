@@ -216,6 +216,40 @@ CalmSpace Haven is a Progressive Web App (PWA) that can be installed as a Truste
 
 4. Open your browser and navigate to `http://localhost:5173`
 
+## Technical Files & .well-known Directory
+
+### Digital Asset Links
+
+For TWA functionality, the app requires a properly configured `.well-known/assetlinks.json` file. This project includes:
+
+- Custom middleware for serving `.well-known` files during development
+- Scripts to ensure proper copying of these files during builds
+- Configuration for proper serving in production
+
+To verify the assetlinks.json file is accessible:
+```bash
+# During development
+curl http://localhost:5173/.well-known/assetlinks.json
+
+# After building, with Express server
+npm run build
+npm run serve
+curl http://localhost:3000/.well-known/assetlinks.json
+```
+
+### Technical Files Handling
+
+The application handles technical files through:
+
+1. **Development**: Custom Vite middleware to serve `.well-known` files and `manifest.webmanifest`
+2. **Express Server**: A simple express server that correctly configures headers for technical files
+3. **Production**: Proper configuration in `vercel.json` and `.htaccess` for hosting providers
+
+If you encounter 404 errors on technical files:
+- Check that the file exists in `public/.well-known/`
+- Run `npm run copy-assetlinks` to ensure the file is copied to all locations
+- Try using the Express server with `npm run serve` to verify proper serving
+
 ## Building the Project
 
 Build the project for production:

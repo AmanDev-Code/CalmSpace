@@ -2,11 +2,13 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import { VitePWA } from 'vite-plugin-pwa';
 import path from 'path';
+import { technicalFilesMiddleware } from './vite-dev-middleware';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react(),
+    technicalFilesMiddleware(),
     VitePWA({
       registerType: 'autoUpdate',
       devOptions: {
@@ -77,6 +79,22 @@ export default defineConfig({
       '@': path.resolve(__dirname, 'src')
     }
   },
+  // Basic server configuration
+  server: {
+    // Set headers for technical files
+    headers: {
+      '/.well-known/assetlinks.json': {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+      '/manifest.webmanifest': {
+        'Content-Type': 'application/manifest+json',
+        'Access-Control-Allow-Origin': '*',
+      }
+    }
+  },
+  // Make sure public directory is properly served
+  publicDir: 'public',
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
