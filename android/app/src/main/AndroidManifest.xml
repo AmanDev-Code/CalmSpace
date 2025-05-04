@@ -8,7 +8,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/network_security_config">
 
         <activity
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode|navigation"
@@ -34,7 +35,7 @@
             </intent-filter>
 
             <!-- Specific deep link for auth callback -->
-            <intent-filter>
+            <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
@@ -42,28 +43,39 @@
             </intent-filter>
 
             <!-- Add Firebase Auth intent filter -->
-            <intent-filter>
+            <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="com.calmspace.haven" />
             </intent-filter>
 
-            <!-- Add Vercel URL redirect handling -->
-            <intent-filter>
+            <!-- Add Vercel URL redirect handling with path -->
+            <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="https" 
-                      android:host="calm-space-gamma.vercel.app" />
+                      android:host="calm-space-gamma.vercel.app"
+                      android:path="/auth-redirect.html" />
             </intent-filter>
 
-            <!-- Add HTTP redirect handling -->
-            <intent-filter>
+            <!-- Add HTTP redirect handling with path -->
+            <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="http" 
+                      android:host="calm-space-gamma.vercel.app"
+                      android:path="/auth-redirect.html" />
+            </intent-filter>
+            
+            <!-- Add intent filter for any path at Vercel domain -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https" 
                       android:host="calm-space-gamma.vercel.app" />
             </intent-filter>
 

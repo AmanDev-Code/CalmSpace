@@ -15,6 +15,10 @@ const config: CapacitorConfig = {
       spinnerColor: "#A288E3",
       splashFullScreen: true,
       splashImmersive: true
+    },
+    App: {
+      // Special handling for auth deep links
+      webViewLoggingEnabled: true
     }
   },
   android: {
