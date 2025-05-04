@@ -170,3 +170,183 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+# CalmSpace Haven - Web App & TWA
+
+Find peace within. One step at a time.
+
+## Overview
+
+CalmSpace Haven is a Progressive Web App (PWA) that can be installed as a Trusted Web Activity (TWA) on Android devices. This README provides instructions for setup, development, and deployment.
+
+## Features
+
+- **Progressive Web App (PWA)** - Works offline and can be installed on supported devices
+- **Trusted Web Activity (TWA)** - Provides a native Android app experience
+- **Mobile-first design** - Optimized for both mobile and desktop experiences
+- **Authentication** - Secure user login and registration
+- **Responsive UI** - Adapts to various screen sizes
+
+## Prerequisites
+
+- Node.js 16.x or later
+- npm 8.x or later
+- For TWA development:
+  - Android Studio
+  - JDK 11+
+  - Bubblewrap CLI or PWA Builder for TWA generation
+
+## Getting Started
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/calmspace-haven-bloom.git
+   cd calmspace-haven-bloom
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+4. Open your browser and navigate to `http://localhost:5173`
+
+## Building the Project
+
+Build the project for production:
+```bash
+npm run build
+```
+
+Preview the production build:
+```bash
+npm run preview
+```
+
+## PWA Features
+
+This application is set up as a Progressive Web App with the following features:
+
+- Offline support via Service Worker
+- Installable via browser's "Add to Home Screen" option
+- App-like experience with full-screen mode
+- Push notifications support (when implemented)
+
+To verify PWA features are working:
+
+1. Run the verification script:
+   ```bash
+   # On Linux/macOS
+   chmod +x verify-pwa.sh
+   ./verify-pwa.sh
+   
+   # On Windows
+   verify-pwa.bat
+   ```
+
+2. Use Lighthouse in Chrome DevTools to check PWA compliance.
+
+## TWA Setup
+
+The project includes scripts to generate a Trusted Web Activity Android app from the PWA.
+
+### Prerequisites for TWA
+
+1. Create a Digital Asset Links file at `.well-known/assetlinks.json`
+2. Generate a signing key for your Android app
+3. Set up the correct manifest and icons
+
+### Generating the TWA App
+
+Run the TWA creation script:
+```bash
+# On Windows
+create-twa.bat
+
+# On Linux/macOS
+chmod +x create-twa.sh
+./create-twa.sh
+```
+
+This will:
+1. Generate the TWA project using Bubblewrap
+2. Build the APK file
+3. Place the APK in the `public` directory
+
+### Publishing to Play Store
+
+1. Sign the app with your release key
+2. Create a bundle:
+   ```bash
+   bundletool build-bundle --modules=app/build/outputs/apk/release/app-release.apk --output=app/build/outputs/bundle/release/app.aab
+   ```
+3. Upload the AAB file to the Google Play Console
+
+## Deployment
+
+### Vercel Deployment
+
+This project is configured to be deployed on Vercel. Key configurations:
+
+- `vercel.json` for routing and headers
+- `_routes.json` for handling SPA routes
+- `public/.htaccess` for Apache server deployments
+
+To deploy to Vercel:
+```bash
+npx vercel
+```
+
+### Other Hosting Providers
+
+If using other hosting providers, ensure:
+
+1. All routes are rewritten to `index.html` except for static files
+2. `.well-known/assetlinks.json` is served correctly
+3. Correct MIME types are set for PWA assets
+4. HTTPS is enabled
+
+## Technical Details
+
+### Key Technologies
+
+- React 18
+- TypeScript
+- Vite
+- Tailwind CSS
+- Firebase (Auth, Firestore)
+- vite-plugin-pwa
+
+### Project Structure
+
+- `/public` - Static assets and PWA resources
+- `/src` - Source code
+  - `/assets` - Static assets imported in components
+  - `/components` - React components
+  - `/contexts` - React context providers
+  - `/hooks` - Custom React hooks
+  - `/pages` - Top-level page components
+  - `/utils` - Utility functions
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch: `git checkout -b feature/my-new-feature`
+3. Commit your changes: `git commit -am 'Add some feature'`
+4. Push to the branch: `git push origin feature/my-new-feature`
+5. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- The React team
+- The Vite team
+- All our contributors

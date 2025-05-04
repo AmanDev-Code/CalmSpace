@@ -67,7 +67,23 @@
   ],
   "rewrites": [
     {
-      "source": "/((?!api/).*)",
+      "source": "/.well-known/(.*)",
+      "destination": "/.well-known/$1"
+    },
+    {
+      "source": "/manifest.webmanifest",
+      "destination": "/manifest.webmanifest"
+    },
+    {
+      "source": "/workbox-(.*)",
+      "destination": "/workbox-$1"
+    },
+    {
+      "source": "/sw.js",
+      "destination": "/sw.js"
+    },
+    {
+      "source": "/((?!api/|.well-known/|manifest.webmanifest|workbox-|sw.js).*)",
       "destination": "/index.html"
     }
   ]

@@ -24,20 +24,8 @@ import EmailVerification from "./pages/EmailVerification";
 import { AuthProvider } from "./contexts/AuthContext";
 import MobileAppWrapper from "./components/MobileAppWrapper";
 import ProtectedRoute from "./components/ProtectedRoute";
-import { useEffect } from "react";
 
 const queryClient = new QueryClient();
-
-// This component allows the browser to handle .well-known and other technical files directly
-// without React Router interfering
-const TechnicalFileHandler = () => {
-  useEffect(() => {
-    // The browser will now load the file directly from the server
-    window.location.reload();
-  }, []);
-  
-  return null;
-};
 
 const App = () => {
   return (
@@ -49,12 +37,6 @@ const App = () => {
           <BrowserRouter>
             <MobileAppWrapper>
               <Routes>
-                {/* Technical routes that bypass React Router */}
-                <Route path="/.well-known/*" element={<TechnicalFileHandler />} />
-                <Route path="/manifest.webmanifest" element={<TechnicalFileHandler />} />
-                <Route path="/sw.js" element={<TechnicalFileHandler />} />
-                <Route path="/workbox-*" element={<TechnicalFileHandler />} />
-                
                 {/* Authentication routes - no protection needed */}
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />

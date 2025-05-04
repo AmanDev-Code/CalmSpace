@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CalmSpace - Redirecting</title>
+    <script>
+        // Check if this is a technical path that should be handled directly
+        const path = window.location.pathname;
+        const isExcludedPath = (
+            path.startsWith('/.well-known/') || 
+            path === '/manifest.webmanifest' || 
+            path === '/sw.js' || 
+            path.startsWith('/workbox-')
+        );
+
+        // If this is a direct path that should be excluded from SPA routing, 
+        // don't redirect - this will show a proper 404 for missing static files
+        if (!isExcludedPath) {
+            // Redirect to the main app for SPA routing
+            window.location.href = '/';
+        }
+    </script>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f9f5f2;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            padding: 2rem;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        p {
+            margin-bottom: 1.5rem;
+        }
+        a {
+            color: #A288E3;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Page Not Found</h1>
+        <p>Redirecting you to CalmSpace home page...</p>
+        <p>If you're not redirected, <a href="/">click here</a>.</p>
+    </div>
+</body>
+</html> 
